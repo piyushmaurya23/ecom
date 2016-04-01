@@ -1,1 +1,93 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <section id="one" class="back-one">
+        <div class="container">
+            <div class="feature-content">
+                <div class="row">
+                    <div class="col-md-6 feature-caption">
+                        <h2>About Us!</h2><br>
+                        <p>We are the team of 3 people who are crazy enough to make great product that helps people
+                            make their life easier, better and smarter. Our whole purpose is to is make the world a
+                            better
+                            place to
+                            live.
+                        </p>
+                        <p>
+                            We work on latest technology of 2016 to make really cool product in mainly 3 fields.
+                        </p>
+                        <ul>
+                            <li>Web Technology</li>
+                            <li>App development</li>
+                            <li>Data Science</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 hidden-sm-down">
+                        <img src="{% static 'images/ipad.png' %}" alt="ipad">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="two" class="back-two">
+        <div class="container">
+            <div class="feature-content">
+                <div class="row">
+                    <div class="col-md-6 feature-caption">
+                        <img src="{% static 'images/iphone.png' %}" alt="iphone">
+                    </div>
+                    <div class="col-md-6 hidden-sm-down">
+                         <h2>About Us!</h2><br>
+                        <p>We are the team of 3 people who are crazy enough to make great product that helps people
+                            make their life easier, better and smarter. Our whole purpose is to is make the world a
+                            better
+                            place to
+                            live.
+                        </p>
+                        <p>
+                            We work on latest technology of 2016 to make really cool product in mainly 3 fields.
+                        </p>
+                        <ul>
+                            <li>Web Technology</li>
+                            <li>App development</li>
+                            <li>Data Science</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="three" class="back-three">
+        <div class="container">
+            <div class="feature-content">
+                <div class="row">
+                    <div class="col-md-6 feature-caption">
+                        <h2>About Us!</h2><br>
+                        <p>We are the team of 3 people who are crazy enough to make great product that helps people
+                            make their life easier, better and smarter. Our whole purpose is to is make the world a
+                            better
+                            place to
+                            live.
+                        </p>
+                        <p>
+                            We work on latest technology of 2016 to make really cool product in mainly 3 fields.
+                        </p>
+                        <ul>
+                            <li>Web Technology</li>
+                            <li>App development</li>
+                            <li>Data Science</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 hidden-sm-down">
+                        <img src="{% static 'images/imac.png' %}" alt="imac">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

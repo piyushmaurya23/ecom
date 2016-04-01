@@ -1,9 +1,11 @@
-{% load staticfiles i18n %}<!DOCTYPE html>
+{% load staticfiles %}
+{% load i18n %}
+<!DOCTYPE html>
 <html lang="en" ng-app>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}ecom{% endblock title %}</title>
+    <title>{% block title %}fakekart{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -20,6 +22,7 @@
     <!-- Your stuff: Third-party css libraries go here -->
 
     <!-- This file store project specific CSS -->
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
     {% endblock %}
 
@@ -32,25 +35,25 @@
   <body>
 
     <div class="m-b">
-      <nav class="navbar navbar-dark navbar-static-top bg-inverse">
+      <nav class="navbar navbar-dark navbar-static-top ">
         <div class="container">
-          <a class="navbar-brand" href="/">ecom</a>
+          <a class="navbar-brand" href="/">fakekart</a>
           <button type="button" class="navbar-toggler hidden-sm-up pull-xs-right" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
             &#9776;
           </button>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-toggleable-xs" id="bs-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav pull-xs-right">
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'home' %}">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'about' %}">About</a>
               </li>
-            </ul>
 
-            <ul class="nav navbar-nav pull-xs-right">
+
+
               {% if request.user.is_authenticated %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
@@ -79,12 +82,13 @@
               <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
           {% endfor %}
       {% endif %}
+    </div> <!-- /container -->
 
       {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
+
       {% endblock content %}
 
-    </div> <!-- /container -->
+
 
     {% block modal %}{% endblock modal %}
 
@@ -108,4 +112,4 @@
     {% endblock javascript %}
   </body>
 </html>
- 
+
