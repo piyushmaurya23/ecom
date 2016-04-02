@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <table class="table">
+                <tr>
+                    <td>{{ object.title }}</td>
+                    <td>
+                        <select class="form-control">
+                            {% for var_obj in object.variation_set.all %}
+                                <option value="{{ var_obj.id }}">{{ var_obj }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>{{ object.price }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
