@@ -1,5 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models.signals import post_save
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -20,7 +22,7 @@ class ProductManager(models.Manager):
 
 class Product(models.Model):
     title = models.CharField(max_length=120)
-    desdription = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     price = models.IntegerField()
     active = models.BooleanField(default=True)
 
@@ -52,3 +54,34 @@ class Variation(models.Model):
 
     def get_absolute_url(self):
         return self.product.get_absolute_url()
+
+def image_upload_to(instance, filename):
+    title = instance.product.title
+    slug = slugify(title)
+    basename, file_extension = filename.split(".")
+    new_filename = "%s-%s.%s" %(slug, instance.id, file_extension)
+    return "product/%s/%s" %(slug, new_filename)
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product)
+    image = models.ImageField(upload_to=image_upload_to)
+
+    def __str__(self):
+        return self.product.title
+
+
+def product_saved_reciever(sender, instance, created, *args, **kwargs):
+    print(sender)
+    product = instance
+    variations = product.variation_set.all()
+    if variations.count() == 0:
+        new_var = Variation()
+        new_var.product = product
+        new_var.title = "Dafault"
+        new_var.price = product.price
+        new_var.save()
+
+
+
+post_save.connect(product_saved_reciever, sender=Product)

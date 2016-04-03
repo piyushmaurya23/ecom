@@ -5,19 +5,49 @@
 
     <div class="container">
         <div class="row">
-            <table class="table">
-                <tr>
-                    <td>{{ object.title }}</td>
-                    <td>
+            <br>
+            <div class="col-sm-8">
+                <h2>{{ object.title }}</h2>
+                <br>
+                {% if product.productimage_set.count > 0 %}
+                    <div class="col-sm-6 col-sm-offset-3 ">
+                    {% for img in product.productimage_set.all %}
+                        <img src="{{ img.image.url }}" alt="{{ object.title }}" class="img-fluid">
+                    {% endfor %}
+                    </div>
+                    <br>
+                {% endif %}
+
+            <div class="col-sm-10 col-sm-offset-2">
+                <br>
+                <p class="lead">
+                    {{ object.description }}
+                </p>
+            </div>
+
+
+            </div>
+
+            <div class="col-sm-4">
+                {% if object.variation_set.count > 1 %}
                         <select class="form-control">
                             {% for var_obj in object.variation_set.all %}
                                 <option value="{{ var_obj.id }}">{{ var_obj }}</option>
                             {% endfor %}
                         </select>
-                    </td>
-                    <td>{{ object.price }}</td>
-                </tr>
-            </table>
+                    {% endif %}
+                <br>
+                    <p>Rs. {{ object.price }}</p>
+                <a href="#"><span class="btn btn-primary">add to cart</span></a>
+
+                <br>
+                <br>
+                <hr>
+            <p>Related Products</p>
+
+            </div>
+
+
         </div>
     </div>
 
