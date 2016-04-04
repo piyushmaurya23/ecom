@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <section id="one" class="back-one">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>For all your Courier Need!!!</h2>
+                    <p>
+                        We are the best courier service available in the city providing services like:
+                    <ul>
+                        <li>
+                            One Day Delivery
+                        </li>
+                        <li>
+                            Two Day delivery
+                        </li>
+                        <li>
+                            Midnight Delivery
+                        </li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="col-sm-3 col-sm-offset-2">
+                    <img class="img-fluid" src="{% static 'images/courier.png' %}" alt="courier">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="two" class="back-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+        ` <img class="img-fluid" src="{% static 'images/boxes.png' %}" alt="boxes">
+            </div>
+            <div class="col-sm-6 col-sm-offset-2">
+                <h2>
+                    Always on Time
+                </h2>
+                <p>
+                    We deliver always on time. Since 10 years, we never missed a single package
+                    to deliver it on time.
+                </p>
+                <ul>
+                    <li>Always on time</li>
+                    <li>24 Hours Shipment</li>
+                    <li>Call before delivery</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    </section>
+
+    <section id="three" class="back-three">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-4">
+
+            </div>
+
+            </div>
+        </div>
+    </div>
+    </section>
+
+{% endblock %}
