@@ -2,7 +2,7 @@
 {% load i18n %}
 <!DOCTYPE html>
 <html lang="en" ng-app>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{% block title %}fakekart{% endblock title %}</title>
@@ -16,105 +16,118 @@
     <![endif]-->
 
     {% block css %}
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 
         <link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
 
-    <!-- Your stuff: Third-party css libraries go here -->
+        <!-- Your stuff: Third-party css libraries go here -->
 
-    <!-- This file store project specific CSS -->
+        <!-- This file store project specific CSS -->
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+        <link href="{% static 'css/project.css' %}" rel="stylesheet">
     {% endblock %}
 
     {% block angular %}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     {% endblock %}
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <div class="m-b">
-      <nav class="navbar navbar-dark navbar-static-top ">
+<div class="m-b">
+    <nav class="navbar navbar-dark navbar-static-top ">
         <div class="container">
-          <a class="navbar-brand" href="/">fakekart</a>
-          <button type="button" class="navbar-toggler hidden-sm-up pull-xs-right" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-            &#9776;
-          </button>
+            <a class="navbar-brand" href="/">fakekart</a>
+            <button type="button" class="navbar-toggler hidden-sm-up pull-xs-right" data-toggle="collapse"
+                    data-target="#bs-navbar-collapse-1">
+                &#9776;
+            </button>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-toggleable-xs" id="bs-navbar-collapse-1">
-            <ul class="nav navbar-nav pull-xs-right">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'home' %}">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">About</a>
-              </li>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-toggleable-xs" id="bs-navbar-collapse-1">
+
+                <ul class="nav navbar-nav pull-xs-right">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">&nbsp;&nbsp;&nbsp;&nbsp;Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
 
 
 
-              {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Logout" %}</a>
-                </li>
-              {% else %}
-                <li class="nav-item">
-                  <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-                </li>
-                <li class="nav-item">
-                  <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Log In" %}</a>
-                </li>
-              {% endif %}
-            </ul>
-          </div>
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Logout" %}</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a id="sign-up-link" class="nav-link"
+                               href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="log-in-link" class="nav-link"
+                               href="{% url 'account_login' %}">{% trans "Log In" %}</a>
+                        </li>
+
+                    {% endif %}
+
+                </ul>
+                <form class="form-inline pull-xs-right" method="GET" role="search" action="{% url 'products:list' %}">
+                    <input class="form-control" type="text" placeholder="Search" name="q">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
         </div>
-      </nav>
-    </div>
+    </nav>
+</div>
 
-    <div class="container">
+<div class="container">
 
-      {% if messages %}
-          {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-          {% endfor %}
-      {% endif %}
-    </div> <!-- /container -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+</div> <!-- /container -->
 
-      {% block content %}
+{% block content %}
 
-      {% endblock content %}
+{% endblock content %}
 
 
 
-    {% block modal %}{% endblock modal %}
+{% block modal %}{% endblock modal %}
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    {% block javascript %}
-      <!-- Latest JQuery -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+{% block javascript %}
+    <!-- Latest JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
-      <!-- Tether - a requirement for Bootstrap tooltips -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+    <!-- Tether - a requirement for Bootstrap tooltips -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
 
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
 
-      <!-- Your stuff: Third-party javascript libraries go here -->
+    <!-- Your stuff: Third-party javascript libraries go here -->
 
-      <!-- place project specific Javascript in this file -->
-      <script src="{% static 'js/project.js' %}"></script>
-    {% endblock javascript %}
-  </body>
+    <!-- place project specific Javascript in this file -->
+    <script src="{% static 'js/project.js' %}"></script>
+{% endblock javascript %}
+</body>
 </html>
 

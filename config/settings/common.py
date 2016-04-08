@@ -47,6 +47,9 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'ecom.users',  # custom users app
     'ecom.products',
+    'ecom.events',
+    'ecom.register',
+
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

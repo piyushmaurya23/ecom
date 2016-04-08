@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="container">
+        <br>
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="row">
+                Thank you for participating: <b>{{ user }}</b>
+            </div>
+            <div class="row">
+                Mail send to your email ID: <b>{{ email }}</b>
+            </div>
+            <br>
+            <div class="row">
+                <input class="btn btn-success" type="submit" value="Pay Online">
+                <input class="btn btn-primary" type="submit" value="Pay at Venue">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

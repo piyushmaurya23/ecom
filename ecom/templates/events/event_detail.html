@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+        <div class="container">
+        <div class="row">
+            <br>
+            <div class="col-sm-8">
+                <h2>{{ object.title }}</h2>
+                <br>
+
+
+            <div class="col-sm-10 col-sm-offset-2">
+                <br>
+                <p class="lead">
+                    {{ object.description }}
+                </p>
+            </div>
+
+
+            </div>
+
+            <div class="col-sm-4">
+
+                <br>
+                    <p>Rs. {{ object.price }}</p>
+                <a href="{% url 'register:new' object.pk %}"><span class="btn btn-primary">Register</span></a>
+
+                <br>
+                <br>
+                <hr>
+            <p>Related Events</p>
+
+            </div>
+
+
+        </div>
+    </div
+
+{% endblock %}

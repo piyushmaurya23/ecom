@@ -19,6 +19,8 @@ urlpatterns = [
                   # User management
                   url(r'^users/', include("ecom.users.urls", namespace="users")),
                   url(r'^products/', include("ecom.products.urls", namespace="products")),
+                  url(r'^events/', include('ecom.events.urls', namespace="events")),
+                  url(r'^register/', include('ecom.register.urls', namespace="register")),
                   url(r'^accounts/', include('allauth.urls')),
 
                   # Your stuff: custom urls includes go here
