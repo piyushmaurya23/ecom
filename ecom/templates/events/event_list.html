@@ -4,28 +4,70 @@
 
 {% block content %}
 
-   <div class="container">
-       <br>
-       <br>
-    <div class="row">
-        {% for obj in object_list %}
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="" alt="">
-                <div class="caption">
-                    <h3>{{ obj.title }}</h3>
-                    <p>{{ obj.description }}</p>
-                    <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">Detail</a> <a
-                            href="{% url 'register:new' obj.pk %}" class="btn btn-success" role="button">Register</a>
-                    </p>
+    <section id="cover" class="back-two">
+        <div class="container">
+            <div class="feature-content">
+                <div class="row">
+                    <div class="col-md-8 col-sm-offset-2 feature-caption">
+                        <br>
+                        <br>
+                        <h2>Welcome to GCET events registration site.</h2>
+                        <br><br>
+
+
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <p>Hey there,</p>
+                        <p>Do you want to participate in any on going event in Galgotias College.
+                            Here we have listing of current ongoing evensts, but wait, do you want:</p>
+                        <ul>
+                            <li>Online Registration</li>
+                            <li>Details of Event</li>
+                            <li>Details of venue and organiser.</li>
+
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <h4>We have got everything covered</h4>
+                        <p>Here we are going to provide you a platform to get details of events as well register online
+                            for all the events you are interested in, register now and:</p>
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <img src="{% static 'images/pay-button.png' %}" alt="pay">
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    {% endfor %}
+        <br><br>
+    </section>
+
+    <div class="container">
+
+        <br>
+        <br>
+        <div class="row">
+            {% for obj in object_list %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <img class="img-rounded img-thumbnail" src="{{ obj.image.url }}" alt="{{ obj.title }}"
+                                 style="max-height:160px;">
+                        </div>
+                        <div class="caption col-sm-offset-2">
+                            <h3>{{ obj.title }}</h3>
+                            <p>{{ obj.description }}</p>
+                            <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">Detail</a> <a
+                                    href="{% url 'register:new' obj.pk %}" class="btn btn-success" role="button">Register</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
     </div>
-    </div>
-
-
-
 
 {% endblock %}

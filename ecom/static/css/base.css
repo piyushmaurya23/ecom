@@ -42,3 +42,8 @@ h1 {
   background-color: #8699a4;
   color: white;
 }
+.thumbnail{
+    width: 320px;
+    height: 400px;
+    overflow: auto;
+}

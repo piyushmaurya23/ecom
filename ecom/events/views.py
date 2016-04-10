@@ -23,6 +23,7 @@ class EventCreateView(CreateView):
         'title',
         'description',
         'price',
+        'image',
         'organiser',
         'venue'
     ]
