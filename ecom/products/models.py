@@ -25,6 +25,8 @@ class Product(models.Model):
     description = models.TextField(null=True, blank=True)
     price = models.IntegerField()
     active = models.BooleanField(default=True)
+    categories = models.ManyToManyField('Category', blank=True)
+    default = models.ForeignKey('Category', related_name='dafault_category', null=True, blank=True)
 
     objects = ProductManager()
 
@@ -55,6 +57,7 @@ class Variation(models.Model):
     def get_absolute_url(self):
         return self.product.get_absolute_url()
 
+
 def image_upload_to(instance, filename):
     title = instance.product.title
     slug = slugify(title)
@@ -69,6 +72,17 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return self.product.title
+
+    def get_absolute_url(self):
+        return self.product.get_absolute_url()
+
+
+class Category(models.Model):
+    title = models.CharField(max_length=120, unique=True)
+    slug = models.SlugField(unique=True)
+    description = models.TextField(null=True, blank=True)
+    active = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
 
 def product_saved_reciever(sender, instance, created, *args, **kwargs):

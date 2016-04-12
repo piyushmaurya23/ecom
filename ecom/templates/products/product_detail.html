@@ -1,6 +1,27 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+<script>
+    {% block jquery %}
+
+        function setPrice() {
+            var price = $(".variation_select option:selected").attr("data-price")
+            var sale_price = $(".variation_select option:selected").attr("data-sale-price")
+            if (sale_price != "" && sale_price != null && sale_price != "None") {
+                $("#price").html("<h4>"+"Rs. " + sale_price + "  " +"<small style='color:red;text-decoration:line-through;'>MRP"+ "Rs. " + price+"</small></h4>");
+            } else {
+                $("#price").html("Rs. " + price);
+            }
+        }
+        setPrice()
+        $(".variation_select").change(function () {
+           setPrice()
+        })
+
+    {% endblock %}
+</script>
+
+
 {% block content %}
 
     <div class="container">
@@ -28,19 +49,28 @@
 
             </div>
 
-            <div class="col-sm-4">
+            <div  class="col-sm-4">
                 {% if object.variation_set.count > 1 %}
-                        <select class="form-control">
+                        <select class="form-control variation_select">
                             {% for var_obj in object.variation_set.all %}
-                                <option value="{{ var_obj.id }}">{{ var_obj }}</option>
+                                <option data-sale-price="{{ var_obj.sale_price }}" data-price="{{ var_obj.price }}" value="{{ var_obj.id }}">{{ var_obj }}</option>
+
                             {% endfor %}
                         </select>
+                    <br>
+                    <p id="price">Rs. {{ object.price }}</p>
                     {% endif %}
                 <br>
-                    <p>Rs. {{ object.price }}</p>
-                <a href="#"><span class="btn btn-primary">add to cart</span></a>
 
+                <a href="#"><span class="btn btn-primary">add to cart</span></a>
                 <br>
+                <br>
+            Share
+                <br>
+            <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                <i class="fa fa-facebook-square fa-3x"></i>
+
+            </a>
                 <br>
                 <hr>
             <p>Related Products</p>

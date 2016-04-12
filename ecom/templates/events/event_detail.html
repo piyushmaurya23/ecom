@@ -4,7 +4,7 @@
 
 {% block content %}
 
-        <div class="container">
+    <div class="container">
         <div class="row">
             <br>
             <div class="col-sm-8">
@@ -12,12 +12,12 @@
                 <br>
 
 
-            <div class="col-sm-10 col-sm-offset-2">
-                <br>
-                <p class="lead">
-                    {{ object.description }}
-                </p>
-            </div>
+                <div class="col-sm-10 col-sm-offset-2">
+                    <br>
+                    <p class="lead">
+                        {{ object.description }}
+                    </p>
+                </div>
 
 
             </div>
@@ -25,18 +25,24 @@
             <div class="col-sm-4">
 
                 <br>
-                    <p>Rs. {{ object.price }}</p>
-                <a href="{% url 'register:new' object.pk %}"><span class="btn btn-primary">Register</span></a>
+                <p>Rs. {{ object.price }}</p>
+                <a href="{% url 'register:new' object.pk %}"><span class="btn btn-success">Register</span></a>
 
                 <br>
                 <br>
+                Share
+                <br>
+                <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                    <i class="fa fa-facebook-square fa-3x"></i>
+
+                </a>
                 <hr>
-            <p>Related Events</p>
+                <p>Related Events</p>
 
             </div>
 
 
         </div>
-    </div
+    </div>
 
 {% endblock %}

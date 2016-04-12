@@ -3,6 +3,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import CreateView
 
+from braces.views import LoginRequiredMixin
+
 from .models import Event
 
 # Create your views here.
@@ -17,7 +19,7 @@ class EventDetailView(DetailView):
 
 
 
-class EventCreateView(CreateView):
+class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
     fields = [
         'title',

@@ -5,4 +5,9 @@ from .models import Register
 class RegisterForm(forms.ModelForm):
     class Meta:
         model = Register
-        exclude = ()
+        fields = [
+            'event',
+            'name',
+            'email',
+            'mobile',
+        ]
