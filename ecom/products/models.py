@@ -19,6 +19,9 @@ class ProductManager(models.Manager):
     def all(self, *args, **kwargs):
         return self.get_queryset().active()
 
+    def get_related(self, instance):
+        return self.get_queryset()
+
 
 class Product(models.Model):
     title = models.CharField(max_length=120)
@@ -26,7 +29,7 @@ class Product(models.Model):
     price = models.IntegerField()
     active = models.BooleanField(default=True)
     categories = models.ManyToManyField('Category', blank=True)
-    default = models.ForeignKey('Category', related_name='dafault_category', null=True, blank=True)
+    default = models.ForeignKey('Category', related_name='default_category', null=True, blank=True)
 
     objects = ProductManager()
 
@@ -83,6 +86,13 @@ class Category(models.Model):
     description = models.TextField(null=True, blank=True)
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse("category:detail", kwargs={"slug": self.slug})
+
 
 
 def product_saved_reciever(sender, instance, created, *args, **kwargs):

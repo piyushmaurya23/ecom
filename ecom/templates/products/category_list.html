@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+     <div class="container">
+        <div class="row">
+            {% for obj in object_list %}
+            <table class="table">
+                <tr>
+                    <td><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></td>
+
+                </tr>
+            </table>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+

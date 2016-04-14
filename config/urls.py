@@ -21,6 +21,7 @@ urlpatterns = [
                   url(r'^products/', include("ecom.products.urls", namespace="products")),
                   url(r'^events/', include('ecom.events.urls', namespace="events")),
                   url(r'^register/', include('ecom.register.urls', namespace="register")),
+                  url(r'^categories/', include("ecom.products.url_categories", namespace="category")),
                   url(r'^accounts/', include('allauth.urls')),
 
                   # Your stuff: custom urls includes go here

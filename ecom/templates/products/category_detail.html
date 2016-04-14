@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="col-sm-8 col-sm-offset-2">
+
+        <h3>{{ object.title }}</h3>
+        <div class="row">
+            {% for product in products %}
+                <table class="table">
+                    <tr>
+                        <td><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></td>
+                    </tr>
+                </table>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

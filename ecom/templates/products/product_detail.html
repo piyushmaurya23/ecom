@@ -59,7 +59,9 @@
                         </select>
                     <br>
                     <p id="price">Rs. {{ object.price }}</p>
-                    {% endif %}
+                    {% else %}
+                        <p>Rs. {{ object.price }}</p>
+            {% endif %}
                 <br>
 
                 <a href="#"><span class="btn btn-primary">add to cart</span></a>

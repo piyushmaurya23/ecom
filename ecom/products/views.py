@@ -1,4 +1,4 @@
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
@@ -7,7 +7,35 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from .forms import VariationInventoryFormSet
-from .models import Product, Variation, ProductImage
+from .models import Product, Variation, ProductImage, Category
+
+
+class CategoryListView(ListView):
+    model = Category
+    queryset = Category.objects.all()
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CategoryDetailView, self).get_context_data(*args, **kwargs)
+        obj = self.get_object()
+        product_set  = obj.product_set.all()
+        default_products = obj.default_category.all()
+        products = ( product_set | default_products ).distinct()
+        context["products"] = products
+        return context
+
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    fields = [
+        'title',
+        'slug',
+        'description',
+    ]
 
 
 class VariationListView(LoginRequiredMixin, ListView):
@@ -49,7 +77,6 @@ class ProductListView(ListView):
     #     context["query"] = self.request.GET.get("q")
     #     return context
 
-
     def get_queryset(self):
         qs = super(ProductListView, self).get_queryset()
         query = self.request.GET.get("q")
@@ -64,6 +91,9 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
