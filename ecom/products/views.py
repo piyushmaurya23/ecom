@@ -1,14 +1,24 @@
 from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 from django.contrib import messages
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from .forms import VariationInventoryFormSet
-from .models import Product, Variation, ProductImage, Category
+import random
 
+from .forms import VariationInventoryFormSet
+from .models import Product, Variation, ProductImage, Category, ProductFeatured
+
+
+def home(request):
+    featured_image = ProductFeatured.objects.first()
+    context = {
+        "featured_image": featured_image
+    }
+
+    return render(request, "products/home.html", context)
 
 class CategoryListView(ListView):
     model = Category
@@ -94,6 +104,10 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
+        instance = self.get_object()
+        context["related"] = sorted(Product.objects.get_related(instance)[:6], key=lambda x: random.random())
+        return context
+
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):

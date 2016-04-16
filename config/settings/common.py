@@ -50,6 +50,7 @@ LOCAL_APPS = (
     'ecom.products',
     'ecom.events',
     'ecom.register',
+    'ecom.carts',
 
 )
 

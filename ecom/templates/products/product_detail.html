@@ -8,14 +8,14 @@
             var price = $(".variation_select option:selected").attr("data-price")
             var sale_price = $(".variation_select option:selected").attr("data-sale-price")
             if (sale_price != "" && sale_price != null && sale_price != "None") {
-                $("#price").html("<h4>"+"Rs. " + sale_price + "  " +"<small style='color:red;text-decoration:line-through;'>MRP"+ "Rs. " + price+"</small></h4>");
+                $("#price").html("<h4>" + "Rs. " + sale_price + "  " + "<small style='color:red;text-decoration:line-through;'>MRP" + "Rs. " + price + "</small></h4>");
             } else {
                 $("#price").html("Rs. " + price);
             }
         }
         setPrice()
         $(".variation_select").change(function () {
-           setPrice()
+            setPrice()
         })
 
     {% endblock %}
@@ -30,58 +30,73 @@
             <div class="col-sm-8">
                 <h2>{{ object.title }}</h2>
                 <br>
-                {% if product.productimage_set.count > 0 %}
+                {% if object.get_image_url %}
                     <div class="col-sm-6 col-sm-offset-3 ">
-                    {% for img in product.productimage_set.all %}
-                        <img src="{{ img.image.url }}" alt="{{ object.title }}" class="img-fluid">
-                    {% endfor %}
+                        <img src="{{ object.get_image_url }}" alt="{{ object.title }}" class="img-fluid">
                     </div>
                     <br>
                 {% endif %}
 
-            <div class="col-sm-10 col-sm-offset-2">
-                <br>
-                <p class="lead">
-                    {{ object.description }}
-                </p>
-            </div>
+                <div class="col-sm-10 col-sm-offset-2">
+                    <br>
+                    <p class="lead">
+                        {{ object.description }}
+                    </p>
+                </div>
 
 
             </div>
 
-            <div  class="col-sm-4">
+            <div class="col-sm-4">
                 {% if object.variation_set.count > 1 %}
-                        <select class="form-control variation_select">
-                            {% for var_obj in object.variation_set.all %}
-                                <option data-sale-price="{{ var_obj.sale_price }}" data-price="{{ var_obj.price }}" value="{{ var_obj.id }}">{{ var_obj }}</option>
+                    <select class="form-control variation_select">
+                        {% for var_obj in object.variation_set.all %}
+                            <option data-sale-price="{{ var_obj.sale_price }}" data-price="{{ var_obj.price }}"
+                                    value="{{ var_obj.id }}">{{ var_obj }}</option>
 
-                            {% endfor %}
-                        </select>
+                        {% endfor %}
+                    </select>
                     <br>
                     <p id="price">Rs. {{ object.price }}</p>
-                    {% else %}
-                        <p>Rs. {{ object.price }}</p>
-            {% endif %}
+                {% else %}
+                    <p>Rs. {{ object.price }}</p>
+                {% endif %}
                 <br>
 
                 <a href="#"><span class="btn btn-primary">add to cart</span></a>
                 <br>
                 <br>
-            Share
+                Share
                 <br>
-            <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
-                <i class="fa fa-facebook-square fa-3x"></i>
+                <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                    <i class="fa fa-facebook-square fa-3x"></i>
 
-            </a>
+                </a>
                 <br>
                 <hr>
-            <p>Related Products</p>
+                <p>Related Products</p>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-2">
+                        <div class="card">
+                            {% for product in related %}
+                                {% if product.get_image_url %}
 
+                                    <img src="{{ product.get_image_url }}" alt="{{ product.title }}" class="img-fluid">
+                                {% endif %}
+                                <div class="card-block">
+                                    <h4 class="card-title"><a
+                                            href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                                    </h4>
+
+                                </div>
+                                {% cycle '' '' '</div><div class="row">' %}
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
         </div>
     </div>
 
 {% endblock %}
-

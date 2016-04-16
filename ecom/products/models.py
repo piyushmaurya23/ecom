@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.utils.text import slugify
 
 
+
+
 # Create your models here.
 
 
@@ -20,7 +22,10 @@ class ProductManager(models.Manager):
         return self.get_queryset().active()
 
     def get_related(self, instance):
-        return self.get_queryset()
+        products_one = self.get_queryset().filter(categories__in=instance.categories.all())
+        products_two = self.get_queryset().filter(default=instance.default)
+        qs = ( products_one | products_two).exclude(id=instance.id).distinct()
+        return qs
 
 
 class Product(models.Model):
@@ -33,11 +38,21 @@ class Product(models.Model):
 
     objects = ProductManager()
 
+    class Meta:
+        ordering = ["-title"]
+
+
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse("products:detail", kwargs={"pk": self.pk})
+
+    def get_image_url(self):
+        img = self.productimage_set.first()
+        if img:
+            return img.image.url
+        return img
 
 
 class Variation(models.Model):
@@ -92,6 +107,28 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse("category:detail", kwargs={"slug": self.slug})
+
+
+def image_upload_to_featured(instance, filename):
+    title = instance.product.title
+    slug = slugify(title)
+    basename, file_extension = filename.split(".")
+    new_filename = "%s-%s.%s" %(slug, instance.id, file_extension)
+    return "product/%s/featured/%s" %(slug, new_filename)
+
+
+class ProductFeatured(models.Model):
+    product = models.ForeignKey(Product)
+    image = models.ImageField(upload_to=image_upload_to_featured)
+    title = models.CharField(max_length=120, null=True, blank=True)
+    text = models.CharField(max_length=220, null=True, blank=True)
+    text_right = models.BooleanField(default=False)
+    show_price = models.BooleanField(default=False)
+    make_image_background = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.product.title
 
 
 

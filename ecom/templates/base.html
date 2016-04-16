@@ -29,6 +29,8 @@
         <!-- This file store project specific CSS -->
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
         <link href="{% static 'css/project.css' %}" rel="stylesheet">
+        {% block style %}
+        {% endblock %}
     {% endblock %}
 
     {% block angular %}
@@ -81,6 +83,9 @@
                         </li>
 
                     {% endif %}
+                    <li class="nav-item">
+                    <a href="#"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"><span class="badge"> 0</span></i></a>
+</li>
 
                 </ul>
                 <form class="form-inline pull-xs-right" method="GET" role="search" action="{% url 'products:list' %}">
@@ -88,6 +93,8 @@
                     <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i>
                     </button>
                 </form>
+
+</a>
             </div>
         </div>
     </nav>

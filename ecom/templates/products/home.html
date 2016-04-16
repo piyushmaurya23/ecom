@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block style %}
+    <style>
+
+        .cover {
+        {% if featured_image.make_image_background %}
+            background: #222 url('{{ featured_image.image.url }}') center center no-repeat;
+            background-size: cover;
+            color: white;
+            height: 60%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        {% endif %}
+        }
+
+
+    </style>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+    {% if featured_image %}
+        <section>
+            <div class="cover">
+                <div class="container">
+                    <div class="feature-content">
+                        <div class="row">
+
+                            <div class="col-md-12 ">
+                                <br><br><br>
+                                <h2>{{ featured_image.product.title }}</h2><br>
+                                <p>
+                                    {{ featured_image.product.description }}
+                                </p>
+                                <p>
+                                    <a href="{{ featured_image.product.get_absolute_url }}" class="btn btn-primary"
+                                       role="button">
+                                        More Info
+                                    </a>
+                                </p>
+                                <br><br><br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+
+{% endblock %}
